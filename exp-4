@@ -1,0 +1,39 @@
+from itertools import permutations
+
+def solve_cryptarithm():
+    words = ["SEND", "MORE"]
+    result = "MONEY"
+    
+    # Get unique letters
+    letters = set("".join(words) + result)
+    if len(letters) > 10:
+        print("Too many unique letters")
+        return
+
+    letters = list(letters)
+
+    for perm in permutations(range(10), len(letters)):
+        mapping = dict(zip(letters, perm))
+
+        # Skip if any word starts with zero
+        if any(mapping[word[0]] == 0 for word in words + [result]):
+            continue
+
+        def word_to_number(word):
+            return int("".join(str(mapping[c]) for c in word))
+
+        total = sum(word_to_number(w) for w in words)
+        result_value = word_to_number(result)
+
+        if total == result_value:
+            print("Solution Found:")
+            for k, v in mapping.items():
+                print(f"{k} = {v}")
+            print(f"{' + '.join(words)} = {result}")
+            print(f"{' + '.join(str(word_to_number(w)) for w in words)} = {result_value}")
+            return
+
+    print("No solution found.")
+
+# Run the program
+solve_cryptarithm()
