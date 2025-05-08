@@ -1,0 +1,40 @@
+def is_valid(state, neighbors, region, color):
+    for neighbor in neighbors[region]:
+        if neighbor in state and state[neighbor] == color:
+            return False
+    return True
+
+def backtrack(state, variables, domains, neighbors):
+    if len(state) == len(variables):
+        return state
+
+    region = [v for v in variables if v not in state][0]
+
+    for color in domains:
+        if is_valid(state, neighbors, region, color):
+            state[region] = color
+            result = backtrack(state, variables, domains, neighbors)
+            if result:
+                return result
+            del state[region]
+    return None
+
+# Problem setup
+variables = ['WA', 'NT', 'SA', 'Q', 'NSW', 'V', 'T']
+domains = ['Red', 'Green', 'Blue']
+neighbors = {
+    'WA': ['NT', 'SA'],
+    'NT': ['WA', 'SA', 'Q'],
+    'SA': ['WA', 'NT', 'Q', 'NSW', 'V'],
+    'Q': ['NT', 'SA', 'NSW'],
+    'NSW': ['Q', 'SA', 'V'],
+    'V': ['SA', 'NSW'],
+    'T': []
+}
+
+solution = backtrack({}, variables, domains, neighbors)
+
+# Output result
+print("Map Coloring Solution:")
+for region in variables:
+    print(f"{region}: {solution[region]}")
