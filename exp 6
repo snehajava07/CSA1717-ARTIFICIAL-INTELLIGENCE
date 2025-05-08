@@ -1,0 +1,30 @@
+def vacuum_world(state):
+    # state = (vacuum_position, roomA_status, roomB_status)
+    vacuum, A, B = state
+    actions = []
+
+    if vacuum == 'A':
+        if A == 'Dirty':
+            actions.append('Suck')
+            A = 'Clean'
+        else:
+            actions.append('Move Right')
+            vacuum = 'B'
+    elif vacuum == 'B':
+        if B == 'Dirty':
+            actions.append('Suck')
+            B = 'Clean'
+        else:
+            actions.append('Move Left')
+            vacuum = 'A'
+
+    return (vacuum, A, B), actions
+
+# Initial state: vacuum in A, both rooms dirty
+state = ('A', 'Dirty', 'Dirty')
+
+# Run simulation
+for _ in range(5):
+    print("State:", state)
+    state, action = vacuum_world(state)
+    print("Action:", action)
