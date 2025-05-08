@@ -1,0 +1,44 @@
+from collections import deque
+
+def is_valid(m_left, c_left, boat):
+    m_right, c_right = 3 - m_left, 3 - c_left
+    if m_left < 0 or c_left < 0 or m_right < 0 or c_right < 0:
+        return False
+    if (m_left > 0 and m_left < c_left) or (m_right > 0 and m_right < c_right):
+        return False
+    return True
+
+def get_successors(state):
+    m, c, b = state
+    moves = [(1,0), (2,0), (0,1), (0,2), (1,1)]
+    next_states = []
+    for dm, dc in moves:
+        if b == 1:  # boat on left
+            new_state = (m - dm, c - dc, 0)
+        else:       # boat on right
+            new_state = (m + dm, c + dc, 1)
+        if is_valid(*new_state):
+            next_states.append(new_state)
+    return next_states
+
+def solve():
+    start = (3, 3, 1)
+    goal = (0, 0, 0)
+    queue = deque([(start, [start])])
+    visited = set()
+
+    while queue:
+        state, path = queue.popleft()
+        if state in visited:
+            continue
+        visited.add(state)
+        if state == goal:
+            return path
+        for next_state in get_successors(state):
+            queue.append((next_state, path + [next_state]))
+    return None
+
+# Run and print the solution
+solution = solve()
+for step in solution:
+    print(step)
