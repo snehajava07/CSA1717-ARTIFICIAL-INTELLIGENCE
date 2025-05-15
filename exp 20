@@ -1,0 +1,9 @@
+% planet(Name, DistanceFromSunInMillionKm, Type)
+planet(mercury, 57.9, terrestrial).
+planet(venus, 108.2, terrestrial).
+planet(earth, 149.6, terrestrial).
+planet(mars, 227.9, terrestrial).
+planet(jupiter, 778.3, gas_giant).
+planet(saturn, 1427, gas_giant).
+planet(uranus, 2871, ice_giant).
+planet(neptune, 4495, ice_giant).
