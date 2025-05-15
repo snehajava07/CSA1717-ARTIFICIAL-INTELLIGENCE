@@ -1,0 +1,21 @@
+<!-- Anchor Tag Example -->
+<a href="https://www.example.com" title="Visit Example Website" target="_blank">Click here to visit Example.com</a>
+
+<br><br>
+
+<!-- Title Tag Example (shown as code) -->
+<p>The &lt;title&gt; tag example (used in &lt;head&gt;):</p>
+<pre><code>&lt;title&gt;My Blog Post Title&lt;/title&gt;</code></pre>
+
+<br>
+
+<!-- Other HTML Tags Example -->
+<h1>This is a Heading 1</h1>
+<p>This is a paragraph describing the topic.</p>
+<img src="https://via.placeholder.com/150" alt="Placeholder Image" title="Sample Image">
+
+<br>
+
+<!-- Show anchor tag as code -->
+<p>Anchor tag code example:</p>
+<pre><code>&lt;a href="https://www.example.com" title="Visit Example Website" target="_blank"&gt;Click here to visit Example.com&lt;/a&gt;</code></pre>
