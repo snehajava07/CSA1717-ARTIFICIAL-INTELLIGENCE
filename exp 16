@@ -1,0 +1,42 @@
+import numpy as np
+
+# Activation Functions
+def relu(x):
+    return np.maximum(0, x)
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# Initialize weights and biases
+def initialize_parameters(input_size, hidden_size, output_size):
+    np.random.seed(42)  # reproducibility
+    W1 = np.random.randn(hidden_size, input_size) * 0.01
+    b1 = np.zeros((hidden_size, 1))
+    W2 = np.random.randn(output_size, hidden_size) * 0.01
+    b2 = np.zeros((output_size, 1))
+    return W1, b1, W2, b2
+
+# Forward propagation
+def forward_pass(X, W1, b1, W2, b2):
+    Z1 = np.dot(W1, X) + b1
+    A1 = relu(Z1)
+    Z2 = np.dot(W2, A1) + b2
+    A2 = sigmoid(Z2)
+    return A2
+
+# Example usage
+if __name__ == "__main__":
+    # Sample input (2 features, 1 example)
+    X = np.array([[0.5], [0.8]])
+
+    # Network architecture
+    input_size = 2
+    hidden_size = 4
+    output_size = 1
+
+    # Initialize weights
+    W1, b1, W2, b2 = initialize_parameters(input_size, hidden_size, output_size)
+
+    # Run feedforward
+    output = forward_pass(X, W1, b1, W2, b2)
+    print("Network output:", output)
