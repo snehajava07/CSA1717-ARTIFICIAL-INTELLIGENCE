@@ -1,0 +1,12 @@
+% Facts: fruit(Name, Color)
+fruit(apple, red).
+fruit(banana, yellow).
+fruit(grape, purple).
+fruit(orange, orange).
+fruit(lemon, yellow).
+fruit(strawberry, red).
+fruit(blueberry, blue).
+
+% Query fruit by color
+fruits_of_color(Color, Fruit) :-
+    fruit(Fruit, Color).
