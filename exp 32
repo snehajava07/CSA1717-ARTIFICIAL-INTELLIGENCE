@@ -1,0 +1,21 @@
+% Match a list starting with a specific head
+starts_with([Head|_], Head).
+
+% Match a list containing a specific element anywhere
+contains([X|_], X).
+contains([_|Tail], X) :-
+    contains(Tail, X).
+
+% Match a prefix (sublist at start)
+prefix([], _).
+prefix([X|Xs], [X|Ys]) :-
+    prefix(Xs, Ys).
+
+% Match a suffix (sublist at end)
+suffix(Suffix, List) :-
+    append(_, Suffix, List).
+
+% Match substring anywhere in list
+substring(Sub, List) :-
+    suffix(Suffix, List),
+    prefix(Sub, Suffix).
