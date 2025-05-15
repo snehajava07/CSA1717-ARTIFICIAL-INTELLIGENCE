@@ -1,0 +1,28 @@
+```prolog
+% Facts
+at(monkey, tree).
+at(banana, ceiling).
+at(box, floor).
+
+% Actions
+move(monkey, from, to) :-
+    at(monkey, from),
+    retract(at(monkey, from)),
+    assert(at(monkey, to)).
+
+climb(monkey, box) :-
+    at(monkey, box).
+
+push(box, from, to) :-
+    at(box, from),
+    retract(at(box, from)),
+    assert(at(box, to)).
+
+grab(monkey, banana) :-
+    at(monkey, Location),
+    at(banana, Location).
+
+% Goal: monkey has banana
+has_banana :-
+    grab(monkey, banana).
+```
