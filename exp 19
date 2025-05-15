@@ -1,0 +1,10 @@
+% student(Name, SubjectCode)
+student(john, cs101).
+student(mary, cs102).
+student(alex, cs101).
+student(sophia, cs103).
+
+% teacher(Name, SubjectCode)
+teacher(dr_smith, cs101).
+teacher(prof_jones, cs102).
+teacher(dr_lee, cs103).
