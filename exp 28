@@ -1,0 +1,24 @@
+% disease(Disease, ListOfSymptoms).
+disease(flu, [fever, cough, sore_throat, fatigue]).
+disease(cold, [cough, sneezing, runny_nose]).
+disease(malaria, [fever, chills, sweating, headache]).
+disease(covid19, [fever, cough, fatigue, loss_of_taste]).
+
+% Check if all symptoms are present in the patient's symptoms
+has_all_symptoms([], _).
+has_all_symptoms([Symptom|Rest], PatientSymptoms) :-
+    member(Symptom, PatientSymptoms),
+    has_all_symptoms(Rest, PatientSymptoms).
+
+% Diagnose disease based on symptoms
+diagnose(PatientSymptoms, Disease) :-
+    disease(Disease, DiseaseSymptoms),
+    has_all_symptoms(DiseaseSymptoms, PatientSymptoms).
+
+% Suggest diagnosis
+suggest_diagnosis(PatientSymptoms) :-
+    diagnose(PatientSymptoms, Disease),
+    format('Possible disease: ~w~n', [Disease]).
+
+suggest_diagnosis(_) :-
+    format('No matching disease found.~n').
