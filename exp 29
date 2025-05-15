@@ -1,0 +1,27 @@
+% Initial facts
+fact(rainy).
+fact(cold).
+
+% Rules to infer new facts
+infer(wet_grass) :-
+    fact(rainy),
+    \+ fact(wet_grass),
+    assert(fact(wet_grass)),
+    format('Inferred: wet_grass~n').
+
+infer(snow) :-
+    fact(cold),
+    \+ fact(snow),
+    assert(fact(snow)),
+    format('Inferred: snow~n').
+
+% Forward chaining engine: keeps inferring until no new facts
+forward_chaining :-
+    (infer(_) -> forward_chaining ; true).
+
+% Query current facts
+list_facts :-
+    fact(F),
+    format('Fact: ~w~n', [F]),
+    fail.
+list_facts.
