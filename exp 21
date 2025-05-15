@@ -1,0 +1,10 @@
+% hanoi(N, Source, Target, Auxiliary)
+hanoi(1, Source, Target, _) :-
+    format('Move disk 1 from ~w to ~w~n', [Source, Target]).
+
+hanoi(N, Source, Target, Auxiliary) :-
+    N > 1,
+    N1 is N - 1,
+    hanoi(N1, Source, Auxiliary, Target),
+    format('Move disk ~w from ~w to ~w~n', [N, Source, Target]),
+    hanoi(N1, Auxiliary, Target, Source).
