@@ -1,0 +1,60 @@
+% Define graph edges: edge(Node, Neighbor, Cost)
+edge(a, b, 1).
+edge(a, c, 3).
+edge(b, d, 1).
+edge(c, d, 1).
+edge(d, e, 1).
+
+% Heuristic function: h(Node, EstimatedCostToGoal)
+h(a, 4).
+h(b, 2).
+h(c, 2).
+h(d, 1).
+h(e, 0).
+
+% best_first_search(Start, Goal, Path)
+best_first_search(Start, Goal, Path) :-
+    h(Start, H),
+    best_first_search([[Start]], Goal, H, RevPath),
+    reverse(RevPath, Path).
+
+% best_first_search(OpenList, Goal, HeuristicOfBestNode, Path)
+best_first_search([[Goal|RestPath]|_], Goal, _, [Goal|RestPath]).
+
+best_first_search(OpenList, Goal, _, Path) :-
+    % Select path with lowest heuristic estimate
+    select_best_path(OpenList, BestPath, RestPaths),
+    BestPath = [CurrentNode|_],
+    % Expand current node
+    findall([NextNode|BestPath],
+        (edge(CurrentNode, NextNode, _),
+         \+ member(NextNode, BestPath)),
+        NewPaths),
+    % Calculate heuristics for new paths
+    add_heuristic(NewPaths, PathsWithHeuristics),
+    append(RestPaths, PathsWithHeuristics, UpdatedOpenList),
+    best_first_search(UpdatedOpenList, Goal, _, Path).
+
+% Select path with lowest heuristic at the front of the path
+select_best_path([Path], Path, []).
+select_best_path([Path1, Path2|Rest], Best, [Other|Others]) :-
+    heuristic_of_path(Path1, H1),
+    heuristic_of_path(Path2, H2),
+    (H1 =< H2 ->
+        Best = Path1,
+        Other = Path2,
+        NewList = Rest
+    ;
+        Best = Path2,
+        Other = Path1,
+        NewList = Rest
+    ),
+    select_best_path(NewList, _, Others).
+select_best_path([Path|Rest], Best, Rest) :- Rest == [], Best = Path.
+
+% Get heuristic of path (heuristic of front node)
+heuristic_of_path([Node|_], H) :- h(Node, H).
+
+% Add heuristic info as path pairs (used for sorting)
+add_heuristic(Paths, Paths).
+
