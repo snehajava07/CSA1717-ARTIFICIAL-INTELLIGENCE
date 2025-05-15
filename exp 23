@@ -1,0 +1,31 @@
+% Basic facts
+male(john).
+male(michael).
+male(david).
+female(susan).
+female(mary).
+female(lisa).
+
+% parent(Parent, Child)
+parent(john, michael).
+parent(susan, michael).
+parent(john, mary).
+parent(susan, mary).
+parent(michael, david).
+parent(lisa, david).
+
+% Rules
+
+% father and mother
+father(F, C) :- parent(F, C), male(F).
+mother(M, C) :- parent(M, C), female(M).
+
+% grandparent
+grandparent(GP, C) :- parent(GP, P), parent(P, C).
+
+% sibling (excluding self)
+sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.
+
+% brother and sister
+brother(B, S) :- sibling(B, S), male(B).
+sister(S, B) :- sibling(S, B), female(S).
